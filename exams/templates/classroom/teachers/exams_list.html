@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include '_modal.html' %}
+{% include 'navbar.html' %}
+{% if user.is_teacher %}
+
+<div class="container">
+    <div class="row">
+      {% include 'sidenav.html' %}
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col-md-12 com-sm-12 col-lg-12" style="margin-top: 3rem; margin-bottom: 3rem;">
+          <div class="card" style="font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Examinations List</li>
+                  </ol>
+                </nav>
+                
+               
+                <div class="card">
+                  <table class="table mb-0 text-center">
+                    <thead>
+                      <tr>
+                        <th>Exams</th>
+                        <th>Year Level</th>
+                        <th>Questions</th>
+                        <th>Taken</th>
+                        <th> <a href="{% url 'exams:create-new-exams' %}" class="btn btn-primary btn-sm col-md-4 offset-md-8" role="button" >
+                      <i class="fas fa-plus" aria-hidden="false"></i>&nbsp Exams
+                    </a></th>
+                        
+                        
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for exams in exams %}
+                        <tr>
+                          <td class="text-center"><a href="{% url 'exams:update_exams' exams.pk %}">{{ exams.name }}</a></td>
+                          <td class="text-center">{{ exams.year_level }}</td>
+                          <td class="text-center">{{ exams.questions_count }}</td>
+                          <td class="text-center">{{ exams.taken_count }}</td>
+                          
+                          
+
+                          <td class="text-right" style="color: white;">
+                            <a class="view-results btn btn-sm btn-primary" data-id="{% url 'exams:exams_results' exams.pk %}" class="results-view btn btn-primary btn-sm"><i class="far fa-eye" aria-hidden="false"></i>&nbspView Result</a>
+                          
+                            <a class="exam-delete btn btn-danger btn-sm" data-id="{% url 'exams:exams_delete' exams.pk %}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt" aria-hidden="false"></i>&nbspDelete</a>
+                            <a href="{% url 'exams:update_exams' exams.pk %}" class="btn btn-secondary btn-sm"><i class="fas fa-edit" aria-hidden="false"></i>&nbspEdit</a>
+                          </td>
+                        </tr>
+                      {% empty %}
+                        <tr>
+                          <td class="bg-light text-center font-italic" colspan="5">You haven't created any exams yet.</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+              
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+
+{% endblock %}
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Read book buttons
+      $(".view-results").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".exam-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+    });
+  </script>
+  {% endblock extrascripts %}

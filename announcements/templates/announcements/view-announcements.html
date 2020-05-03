@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% load crispy_forms_tags humanize %}
+{% block content %}
+<div class="modal-header">
+  <div class="col">
+    <h3 class="modal-title">Announcements Board</h3>
+    <small><p class="text-muted">Date Posted : {{ announcements.date }}</p></small>
+  </div>
+
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="card p-2">
+    <h5 class="font-weight-bold"><i class="fas fa-thumbtack text-primary" aria-hidden = 'false'></i>&nbsp{{ announcements.title }}</h5>
+    <p>Year Level : <strong>{{ announcements.year_level }}</strong></p>
+    <hr>
+    <p class='text-md-left' >{{ announcements.content|linebreaks }}</p>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+</div>
+
+
+{% endblock %}

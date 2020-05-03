@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+{% include '_modal.html' %}
+{% include 'navbar.html' %}
+{% if user.is_teacher %}
+<div class="profile" >
+  <div class="student-list" style='padding: 1rem;'>
+    <div class="row">
+      {% include 'sidenav.html' %}
+
+
+
+      <div class="col-10" style="margin-bottom: 3rem;">
+
+        <div class="card" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+            <div class="card-header">
+                <h6 class="text-muted">List of Students</h6>
+            </div>
+
+            <div class="card-body" >
+
+                <table class="table table-sm mb-0" style="font-size: 14px;">
+                    <thead class="table">
+                      <tr class="bg-secondary text-light">
+
+                        <th scope="col">Name of Students</th>
+                        <th scope="col">Program</th>
+                        <th scope="col">Sections</th>
+                      </tr>
+                    </thead>
+                    {% for list in filter.qs %}
+
+
+                    <tbody>
+                      <tr>
+                        {% if list.section %}
+                        <td class="font-weight-bold">{{ list.last_name }}, {{ list.first_name }} {{ list.middle_name }}</td>
+                        <td>{{ list.program }}</td>
+                        <td>{{ list.section }}</td>
+                        {% else %}
+                        <td>No available Students</td>
+                        {% endif %}
+                      {% empty %}
+                        <div class="alert alert-danger" role="alert">
+                          No available students found in this sections
+                        </div>
+                      </tr>
+
+                    </tbody>
+                    {% endfor %}
+                  </table>
+
+
+            </div>
+
+          </div>
+
+      </div>
+      <div class="col-2">
+        <div class="card" style="height: 32rem; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+
+          <div class="card-body">
+            <form method="GET" class="align-left" style=" font-size: 14px;">
+                      {{ filter.form|crispy }}
+                      <button type="submit" class='btn btn-primary btn-block btn-sm' style="margin-bottom: 1rem;">
+                        <i class="fas fa-filter" aria-hidden="false"></i>&nbspFilter</button>
+            </form>
+            <hr>
+            <small><p class="text-center">List of Year Level</p></small>
+            {% for list in year_level %}
+
+            <div class="row">
+              <div class="col">
+                <small><p>{{ list.name }}</p></small>
+              </div>
+              <div class="col">
+                <p class="text-center"><a data-id="{% url 'profile:yearlevel-delete' list.pk %}" class="yearlevel-delete text-danger"><i class="far fa-trash-alt"></i></a></p>
+
+              </div>
+
+            </div>
+
+            {% endfor %}
+            <td><p class="text-center "><a  class="add-year-level btn btn-primary btn-sm  text-light" style='font-size: 10px; width: 6rem;'>
+              <i class="fas fa-plus" aria-hidden='false'></i>&nbspYear Level</a></p></td>
+          </div>
+        </div>
+
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}
+
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Create book button
+      $(".add-year-level").modalForm({formURL: "{% url 'profile:yearlevel-add' %}"});
+      // Delete book buttons
+      $(".yearlevel-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+    });
+  </script>
+  {% endblock extrascripts %}

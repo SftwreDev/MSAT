@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% if form.non_field_errors %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {% for error in form.non_field_errors %}
+        <p{% if forloop.last %} class="mb-0"{% endif %}>{{ error }}</p>
+      {% endfor %}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {% endif %}
+  <div class="container">
+    <div class="row">
+        <div class="col">
+
+        </div>
+<div class="col">
+    <h1 class="text-center"></h1>
+    <div class="card" style="height: 33rem; margin-top: 1rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25); border-radius: 1rem;">
+    <center> <img src="{% static 'images/msat-logo.png' %}" class="card-img-top" alt="MSAT Logo" style="width: 12rem; height: 12rem;"> </center>
+    <p class="font-weight-bolder text-center" style="font-size: 17px;">MSAT <br> E-Learning Management System</p>
+  <div class="card-body">
+   <form method="POST">
+        {% csrf_token %}
+      <div class="form-group">
+      <form method="post" novalidate>
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}">
+        {{ form.username|as_crispy_field }}
+        {{ form.password|as_crispy_field }}
+        <button type="submit" class="btn btn-primary btn-sm btn-block">Log In</button>
+        <a href="{% url 'signup' %}" class="text-decoration-none">Create New Account</a>
+      </form>
+      </form>
+      </div>
+  </div>
+</div>
+</div>
+
+<div class="col">
+</div>
+</div>
+</div>
+
+
+
+
+{% endblock %}

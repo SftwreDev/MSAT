@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% include 'navbar.html' %}
+{% if user.is_student %}
+
+  <div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      {% include 'sidenav.html' %}
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col-12" style="margin-top: 3rem;">
+          <div class="card" style="font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title">Examinations</h3>
+              <p class="font-weight-light">Hello <span class="badge badge-danger">{{ user.studentprofile.last_name }}, {{ user.studentprofile.first_name }} {{ user.studentprofile.middle_name }}</span> ! </p>
+              
+              <div class="card text-center">
+                {% include 'classroom/students/exams_header.html' with active='taken' %}
+                <table class="table mb-0">
+                  <thead>
+                    <tr>
+                      <th>Exams</th>
+                      <th>Year Level</th>
+                      <th>Length</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for exams in exams %}
+                      <tr>
+                        <td class="align-middle">{{ exams.name }}</td>
+                        <td class="align-middle">{{ exams.year_level }}</td>
+                        <td class="align-middle">{{ exams.questions_count }} questions</td>
+                        <td class="text-right">
+                          <a href="{% url 'exams:take_exams' exams.pk %}" class="btn btn-primary btn-sm">Start exams</a>
+                        </td>
+                      </tr>
+                    {% empty %}
+                      <tr>
+                        <td class="bg-light text-center font-italic" colspan="4">No exams available right now for you.</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}

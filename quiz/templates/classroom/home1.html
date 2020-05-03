@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+{% include "navbar.html" %}
+{% include "sidenav.html" %}
+
+<!-- Full Page Image Header with Vertically Centered Content -->
+<header class="masthead" style="background-image: url('{% static 'images/msat-banner.png' %}');height: 70vh;
+min-height: 200px;
+
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;">
+
+
+  <div class="container h-100">
+    <div class="row h-100 align-items-center">
+      <div class="col-12 text-center" style="color: white;">
+       
+      </div>
+    </div>
+    <div class="card text-center" >
+      <div class="card-header">
+       
+      </div>
+      <div class="card-body " >
+        <h5 class="card-title font-weight-bold" style="font-size: 35px;">Malvar School of Arts and Trade</h5>
+        <hr>
+
+        <p class="card-text text-center font-weight-light" style="font-size: 20px; height: 10rem;">Malvar School of Arts and Trade is a technical-vocational secondary public high school in the town of Malvar,
+           Province of Batangas. Malvar School of Trades and Arts is 
+          implementing the new curriculum, Strengthened Technical- Vocational Education Program (STVEP) using Competency-Based Curriculum (CBC).</p>
+        
+      </div>
+      
+    </div>
+    <div class="card-deck text-center" style="margin-top: 10rem; margin-bottom: 5rem;">
+      <div class="card">
+        <img src="{% static 'images/exams.png' %}" class="card-img-top" alt="exams/quizzes" style="width: 10rem; margin-left: 100px; margin-top: 1rem;">
+        <div class="card-body">
+          <h5 class="card-title">Easy ways of taking exams and quizzes</h5> <hr>
+          <p class="card-text">You don't need to have some papers and pens to answer your quizzes and exams. With this E-Learning Management System, you can now 
+            take exams and quizzes without using any papers and pens. 
+          </p>
+        </div>
+        
+      </div>
+      <div class="card ">
+        <img src="{% static 'images/handouts.png' %}" class="card-img-top" alt="..." style="width: 10rem; margin-left: 100px; margin-top: 1rem;">
+        <div class="card-body">
+          <h5 class="card-title">Browse some handouts here</h5> <hr>
+          <p class="card-text">You can now enjoy browsing some of the best pdf files or handouts about computer hardware and computer system here!</p>
+        </div>
+       
+      </div>
+      <div class="card">
+        <img src="{% static 'images/videos.png' %}" class="card-img-top" alt="..." style="width: 10rem; margin-left: 100px; margin-top: 1rem;">
+        <div class="card-body">
+          <h5 class="card-title">Educational Videos</h5> <hr>
+          <p class="card-text">You can now enjoy watching some of the educational videos and expand your knowledge skilss</p>
+        </div>
+       
+      </div>
+    </div>
+
+</header>
+
+<!-- Page Content -->
+<section class="py-5">
+  <div class="container">
+    
+  </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="page-footer font-small pt-1 fixed-bottom " style="background-color: #27ae60; height: 30px; font-size: 13px;">
+
+    
+      <!-- Copyright -->
+      <div class="footer-copyright text-center py-1" style='color: #FFFF;'>This Web Application System is built using : 
+      <a href="https://mdbootstrap.com/education/bootstrap/" style='color: #FFFF;'> <i class="fab fa-python" aria-hidden="false"></i></a>
+      </div>
+      <!-- Copyright -->
+  
+  </footer>
+  <!-- Footer -->
+
+{% endblock %}

@@ -1,0 +1,132 @@
+{% load static %}
+
+<style>
+ .navbar-menu a:hover{
+  transform: scale(1.2);
+ }
+
+</style>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark text-light">
+  <a class="navbar-brand py-1" href="{% url 'home' %}">
+            <img src="{% static 'images/msat_logo.png' %}" width="40" height="40" alt="msat-logo" id="msat-logo">
+    </a>
+    <a class=" logo navbar-brand" >Malvar School of Arts and Trade</a>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+
+  <div class="navbar-menu collapse navbar-collapse offset-md-2 " id="navbarSupportedContent"  >
+    {% if user.is_authenticated %}
+    {% if user.is_student %}
+    <ul class="navbar-nav float-sm-left" >
+      <li class="nav-item">
+        <a href="{% url 'home' %}" class="nav-link"><i class="fa fa-home" aria-hidden="false"></i>&nbsp Home</a>
+
+      </li>
+      <li class="nav-item">
+
+        <a href="{% url 'profile:student-profile' %}" class="nav-link"><i class="fa fa-user" aria-hidden="false"></i>&nbsp Profile</a>
+      </li>
+      <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-graduation-cap" aria-hidden='false'></i>&nbspResources
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'exams:exams_list' %}"><i class="fa fa-edit" aria-hidden="false"></i>&nbsp Exams</a>
+          <a class="dropdown-item" href="{% url 'quiz_list' %}"><i class="fa fa-edit" aria-hidden="false"></i>&nbsp Quiz</a>
+          <a class="dropdown-item" href="{% url 'handouts:handouts_homepage' %}"><i class="fa fa-file" aria-hidden="false"></i>&nbsp Handouts</a>
+
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href='{% url "announcements:list-of-announcements" %}' class="nav-link" role='button'><i class="fas fa-thumbtack" aria-hidden='false'></i>&nbspAnnouncements</a>
+
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-cogs" aria-hidden='false'></i>&nbspOptions
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if user.is_student %}
+          {% if user.studentprofile %}
+            <p class="text-muted dropdown-item" >Welcome, <br> {{ user.studentprofile.last_name }}, <br>
+            {{ user.studentprofile.first_name }} {{ user.studentprofile.middle_name }}</p>
+            {% else %}
+            <p class="text-muted dropdown-item" >Welcome, {{ user.username }}</p>
+            {% endif %}
+         <div class="dropdown-divider"></div>
+       <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt" aria-hidden="false"></i>&nbsp Log Out</a>
+
+
+        </div>
+          {% else %}
+          <a class="dropdown-item" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>Log In</a>
+          <a class="dropdown-item" href="{% url 'signup' %}" ><i class="fas fa-user-plus"></i>Sign Up</a>
+          <div class="dropdown-divider"></div>
+
+          {% endif %}
+        </div>
+
+    {% else %}
+
+    <ul class="navbar-nav float-sm-left" >
+      <li class="nav-item">
+        <a href="{% url 'home' %}" class="nav-link"><i class="fa fa-home" aria-hidden="false"></i>&nbsp Home</a>
+
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'profile:list-of-student' %}" class="nav-link"><i class="fa fa-user-friends" aria-hidden="false"></i>&nbsp Student List</a>
+
+      </li>
+      <li class="nav-item dropdown">
+
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-graduation-cap" aria-hidden='false'></i>&nbspResources
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'exams:created_exams_list' %}"><i class="fas fa-edit" aria-hidden="false"></i>&nbsp Exams</a>
+          <a class="dropdown-item" href="{% url 'teachers:quiz_change_list' %}"><i class="far fa-edit" aria-hidden="false"></i>&nbsp Quiz</a>
+          <a class="dropdown-item" href="{% url 'handouts:handouts_homepage' %}"><i class="fa fa-file" aria-hidden="false"></i>&nbsp Handouts</a>
+
+        </div>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'announcements:create-announcements' %}" class="nav-link"><i class="fas fa-thumbtack" aria-hidden='false' role="button"></i>&nbspAnnouncements</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-cogs" aria-hidden='false'></i>&nbspOptions
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% if user.is_teacher %}
+            <p class="text-muted dropdown-item" >Logged In as {{ user.username }}</p>
+         <div class="dropdown-divider"></div>
+       <a class="dropdown-item" href="{% url 'logout' %}"><i class="fa fa-sign-out-alt" aria-hidden="false"></i>&nbsp Log Out</a>
+
+
+        </div>
+          {% else %}
+          <a class="dropdown-item" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>Log In</a>
+          <a class="dropdown-item" href="{% url 'signup' %}" ><i class="fas fa-user-plus"></i>Sign Up</a>
+          <div class="dropdown-divider"></div>
+
+          {% endif %}
+
+      </li>
+    </ul>
+    {% endif %}
+    {% else %}
+    <div class="text-right float-sm-left" style='align: left;'>
+      <a class="" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i>Log In</a>
+      <a class="" href="{% url 'signup' %}" ><i class="fas fa-user-plus"></i>Sign Up</a>
+    </div>
+    {% endif %}
+    <ul class="navbar-nav ">
+
+        </ul>
+
+</nav>

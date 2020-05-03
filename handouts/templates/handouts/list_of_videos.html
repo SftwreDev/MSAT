@@ -1,0 +1,81 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include 'navbar.html' %}
+
+<style>
+.video-part video{
+  max-width: 18rem;
+  min-width: 18rem;
+  position: absolute;
+  right: 5rem;
+
+}
+
+
+.card {
+  margin-top: 20px;
+  border-radius: 1rem;
+  padding: 2rem;
+  background: #FFAFBD;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #ffc3a0, #FFAFBD);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #ffc3a0, #FFAFBD); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+
+</style>
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col">
+
+        {% include 'sidenav.html' %}
+
+      </div>
+
+      <div class="col-md-10" style="margin-bottom: 3rem; margin-top: 2rem;">
+        <form method="GET" class="align-left" style=" font-size: 14px;">
+                  {{ filter.form|crispy }}
+                  <button type="submit" class='btn btn-primary btn-block btn-sm' style="margin-bottom: 1rem;">
+                    <i class="fas fa-search" aria-hidden="false"></i>&nbspSearch</button>
+                </form> 
+         {% for list in list_of_videos %}
+        <div class="card shadow bg-white " style="max-width: 100rem;">
+          <div class="row ">
+           
+            <div class="col-md-4 video-part">
+              
+              <video controls>
+                <source src="{{ list.video.url }}" type="video/mp4">
+              </video>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title text-light">{{ list.title }}</h5>
+                <p class="card-text text-light">{{ list.description }}</p>
+                <p class="card-text text-light"><small>Category : {{ list.category }}</small></p>
+                <p class="card-text text-light"><small>Date Uploaded : {{ list.uploaded_at }}</small></p>
+              </div>
+            </div>
+              
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div class="col">
+
+      </div>
+
+    </div>
+  </div>
+
+
+  {% include 'footer.html' %}
+
+{% endblock %}

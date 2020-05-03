@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+{% include '_modal.html' %}
+{% include 'navbar.html' %}
+{% if user.is_student %}
+<div class="profile" >
+  <div class="container" >
+    <div class="row">
+
+
+      <div class="col">
+
+
+      </div>
+
+      <div class="col-md-12" style="margin-top: 2rem; margin-bottom: 3rem; font-size: 14px;">
+        <div class="card text-center">
+                <img src="" style="background-repeat: no-repeat; background-size: cover;">
+                <img class="rounded-circle account-img" src="{{ user.studentprofile.profile_picture.url }}" class="card-img-top" alt="Profile Picture"
+                style="width: 10rem; left: 10rem; position: relative;">
+
+
+            <div class="card-header">
+                <h5 class="card-title"><img src="{% static 'icons/user-icon.png' %}" style="width: 20px; margin-right: 5px; margin-bottom: 4px;">{{ user.studentprofile.last_name }},
+                     {{user.studentprofile.first_name }} {{ user.studentprofile.middle_name }}<a class='update-profile text-primary' data-id="{% url 'profile:student-update-profile' user.stuentprofile.pk %}" style="font-size: 13px; margin-bottom: 16px; margin-left: 2px"><i class="fas fa-pen" aria-hidden="false"></i>&nbsp</a>
+                   </h5>
+
+              <p class="text-muted text-center"><img src="{% static 'icons/email.png' %}" style="width: 20px; margin-right: 5px; margin-bottom: 3px;">{{ user.studentprofile.email }}</p>
+              <p class="card-text">"{{ user.studentprofile.bio }}"</p>
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Info</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{% url 'profile:student-profile-about' %}">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-taken-exams' %}">Taken Exams</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-taken-quiz' %}">Taken Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-options-profile' %}"><i class="fas fa-user-cog"></i></a>
+                </li>
+
+              </ul>
+            </div>
+
+            <div class="card-body " >
+
+                <ul class="list-group">
+                  {% if user.studentprofile %}
+                    <li class="list-group-item d-flex align-items-center"><img src="{% static 'icons/address.png' %}" style="width: 30px;"> {{ user.studentprofile.address }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/birthday.png' %}" style="width: 30px;"> {{ user.studentprofile.birthday }}</li>
+                    <li class="list-group-item d-flex align-items-center"><img src="{% static 'icons/age-icon.png' %}" style="width: 30px;">{{ user.studentprofile.age }} years old</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/contacts.png' %}" style="width: 30px;">{{ user.studentprofile.contact_no }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/mother.png' %}" style="width: 30px;">{{ user.studentprofile.mothers_name }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/father.png' %}" style="width: 30px;">{{ user.studentprofile.fathers_name }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/gender.png' %}" style="width: 30px;">{{ user.studentprofile.gender }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/academic_level.png' %}" style="width: 30px;">{{ user.studentprofile.academic_level }}</li>
+                    <li class="list-group-item d-flex align-items-center"><img src="{% static 'icons/program.png' %}" style="width: 30px;">{{ user.studentprofile.program }}</li>
+                    <li class="list-group-item d-flex  align-items-center"><img src="{% static 'icons/section.png' %}" style="width: 30px;">{{ user.studentprofile.section }}</li>
+                    <li class="list-group-item d-flex align-items-center"><img src="{% static 'icons/student_id.png' %}" style="width: 30px;">{{ user.studentprofile.student_id }}</li>
+                    {% else %}
+                    <p>Please update your profile now !</p>
+                    {% endif %}
+                  </ul>
+
+
+            </div>
+
+          </div>
+
+      </div>
+      <div class="col">
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}
+{% block extrascripts %}
+  <script type="text/javascript">
+    $(function () {
+
+      // Create book button
+      $(".create-profile").modalForm({formURL: "{% url 'profile:student-create-profile' %}"});
+
+      // Update book buttons
+      $(".update-profile").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+
+      // Delete book buttons
+      $(".delete-profile").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+
+
+    });
+  </script>
+{% endblock extrascripts %}

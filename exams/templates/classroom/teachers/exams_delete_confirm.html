@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+  {% include 'navbar.html' %}
+  {% if user.is_teacher %}
+  
+  <div class="container">
+      <div class="row">
+        {% include 'sidenav.html' %}
+        
+        <div class="col">
+          
+  
+        </div>
+  
+        <div class="col" style="margin-top: 6rem; margin-bottom: 3rem;">
+            <div class="card" style="width: 60rem; font-size: 14px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+              <div class="card-body">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'exams:created_exams_list' %}">My Exams</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'exams:update_exams' exams.pk %}">{{ exams.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Confirm deletion</li>
+                  </ol>
+                </nav>
+                <h2 class="mb-3">Confirm deletion</h2>
+                <p class="lead">Are you sure you want to delete the exams <strong>"{{ exams.name }}"</strong>? There is no going back.</p>
+                <form method="post">
+                  {% csrf_token %}
+                  <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-check" aria-hidden="false"></i>&nbspYes, I'm sure</button>
+                  <a href="{% url 'exams:update_exams' exams.pk %}" class="btn btn-outline-secondary btn-sm" role="button"><i class="fas fa-times" aria-hidden="false"></i>&nbspCancel</a>
+                </form>
+              
+                  </div>
+                
+              </div>
+            </div>
+        </div>
+        <div class="col">
+          
+        </div>
+  
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

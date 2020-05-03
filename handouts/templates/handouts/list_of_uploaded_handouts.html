@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+{% include '_modal.html' %}
+{% include 'navbar.html' %}
+<style>
+.video video {
+  max-width: 6rem;
+}  
+
+.card {
+  border-radius: 1rem;
+
+}
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 pt-5">
+      <div class="card" style="width: 70rem;">
+        <div class="card-body">
+          <div class="container">
+          <div class="row">
+            <h5 class="card-title">List of handouts</h5>
+            <a class="card-title uploadhandouts text-light btn btn-primary"  style="height: 30px; width: 90px; padding: 3px; font-size: 14px; margin-left: 5px;">
+                  <span class="fas fa-plus " aria-hidden ='false'></span>&nbspHandouts</a>
+            
+          </div>
+        </div>
+          <table class="table table-striped" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">Title</th>
+                <th class="text-center" scope="col">Description</th>
+                <th class="text-center" scope="col">Category</th>
+                <th class="text-center" scope="col">Date</th>
+                
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>   
+              {% for list in handouts %}
+              <tr>
+                <th scope="col" class="text-center pt-4 ">{{ list.name }}</th>
+                <td class="text-center pt-4">{{ list.description }}</td>
+                <td class="text-center pt-4">{{ list.category }}</td>
+                <td class="text-center pt-4">{{ list.uploaded_at }}</td>
+                <td class="pt-3" style="color: white;">
+                                
+                  <a class="handouts-delete btn btn-danger btn-sm" data-id="{% url 'handouts:delete-handouts' list.pk %}" ><i class="far fa-trash-alt" aria-hidden="false"></i>&nbspDelete</a>
+                  <a data-id="{% url 'handouts:update-handouts' list.pk %}" class="update-handouts btn btn-secondary btn-sm"><i class="fas fa-edit" aria-hidden="false"></i>&nbspEdit</a>
+                </td>
+               
+              </tr>
+              {% empty %}   
+                <div class="alert alert-danger" role="alert">
+                  No available handouts here
+
+                </div>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}
+
+
+
+
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Create book button
+     $(".uploadhandouts").modalForm({formURL: "{% url 'handouts:upload-handouts' %}"});
+
+
+      // Read book buttons
+      $(".view-results").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".handouts-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      //Update 
+      $ (".update-handouts").each(function (){
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+    });
+  </script>
+  {% endblock extrascripts %}

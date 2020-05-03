@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% load crispy_forms_tags humanize %}
+{% block content %}
+<div class="modal-header">
+  <div class="col">
+    <h3 class="modal-title">Scores for <strong>{{ exams.name }}</strong></h3>
+    <p class="text-muted">Rank based on their scores</p>
+  </div>
+
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+  <div class="card">
+                  <div class="card-header">
+                    <strong>Taken Exams</strong>
+                    <span class="badge badge-pill badge-primary float-right">Average Score: {{ exams_score.average_score|default_if_none:0.0 }}</span>
+                  </div>
+                  <table class="table mb-0 text-center" style="font-size: 12px;">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Sections</th>
+                        <th>Date</th>
+                        <th>Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for taken_exams in taken_exams %}
+                        <tr>
+                          <td class="font-weight-bold">{{ taken_exams.student.user.studentprofile.last_name }}, {{ taken_exams.student.user.studentprofile.first_name }} {{ taken_exams.student.user.studentprofile.middle_name }}</td>
+                          <td>{{ exams.year_level }}</td>
+                          <td>{{ taken_exams.date|naturaltime }}</td>
+                          <td>{{ taken_exams.score }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <div class="card-footer text-muted">
+                    Total respondents: <strong>{{ total_taken_exams }}</strong>
+                  </div>
+              </div>
+
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+</div>
+
+
+{% endblock %}

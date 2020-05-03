@@ -1,0 +1,74 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+
+
+<style>
+.handouts-card {
+  border-radius: 10px;
+  box-shadow:
+}
+
+.handouts-card:hover{
+  transform: scale(1.1);
+}
+</style>
+  <div class="container">
+    <div class="row">
+
+
+      <div class="col">
+
+        {% include 'sidenav.html' %}
+
+      </div>
+
+      <div class="col-md-12" style="margin-bottom: 2rem; margin-top: 1rem;">
+        <form method="GET" class="align-left" style=" font-size: 14px;">
+                  {{ filter.form|crispy }}
+                  <button type="submit" class='btn btn-primary btn-block btn-sm' style="margin-bottom: 1rem;">
+                    <i class="fas fa-search" aria-hidden="false"></i>&nbspSearch</button>
+                </form>
+       <div class = 'container'>
+        <div class = 'row justify-content-center mt-3'>
+            {% for list in filter.qs %}
+           <div class="col-lg-3 col-md-6 mb-10 ">
+                    <div class="card handouts-card shadow bg-white rounded" style='width: 230px; height: 370px;'>
+                      <img src="{% static 'images/books.gif' %}" class="card-img-top" alt="{{ list.name }}" width='80' height="100">
+                          <div class="list-text card-body" style="width:  15rem; height: 23rem; ">
+                                <h5 class="display-5">{{ list.name }}</h5>
+                                <p class="card-text">{{ list.description }}</p>
+                                <p class="text-muted" style="font-size: 11px;">Category : {{ list.category }}</p>
+                                <p class="text-muted" style="font-size: 11px;">Uploaded on : {{ list.uploaded_at }}</p>
+
+                         <div class='card-footer text-center'>
+                            <a href="{{ list.get_absolute_url }}" class="btn btn-success btn-sm" >Download</a>
+                        </div>
+                        </div>
+                    </div>
+
+
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+      </div>
+
+
+
+      <div class="col">
+
+      </div>
+
+    </div>
+  </div>
+
+
+  {% include 'footer.html' %}
+
+{% endblock %}

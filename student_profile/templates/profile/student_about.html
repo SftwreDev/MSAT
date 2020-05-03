@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags crispy_forms_filters %}
+{% load static %}
+
+{% block content %}
+{% include 'navbar.html' %}
+{% if user.is_student %}
+<div class="profile" >
+  <div class="container" >
+    <div class="row">
+
+
+      <div class="col">
+        {% include 'sidenav.html' %}
+
+      </div>
+
+      <div class="col-md-8" style="margin-top: 2rem; margin-bottom: 3rem; font-size: 14px;">
+        <div class="card text-center">
+          <div class="text-center">
+            {% if user.studentprofile %}
+            <img class="rounded-circle" src="{{ user.studentprofile.profile_picture.url }}" class="card-img-top" alt="Profile Picture"
+            style="max-width: 10rem; min-width: 10rem; position: relative; ">
+           </div>
+
+        <div class="card-header">
+            <h5 class="card-title"><img src="{% static 'icons/user-icon.png' %}" style="width: 20px; margin-right: 5px; margin-bottom: 4px;">{{ user.studentprofile.last_name }},
+                 {{user.studentprofile.first_name }} {{ user.studentprofile.middle_name }}<a class='updateprofile text-primary' data-id="{% url 'profile:student-update-profile' user.studentprofile.pk %}" style="font-size: 13px; margin-bottom: 16px; margin-left: 2px"><i class="fas fa-pen" aria-hidden="false"></i>&nbsp</a>
+               </h5>
+
+          <p class="text-muted text-center"><img src="{% static 'icons/email.png' %}" style="width: 20px; margin-right: 5px; margin-bottom: 3px;">{{ user.studentprofile.email }}</p>
+          <p class="card-text">"{{ user.studentprofile.bio }}"</p>
+          {% endif %}
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'profile:student-profile' %}">Info</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 'profile:student-profile-about' %}">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-taken-exams' %}">Taken Exams</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-taken-quiz' %}">Taken Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile:student-options-profile' %}"><i class="fas fa-user-cog"></i></a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="card-body"  style="padding: 2rem;">
+
+                <div class="card">
+                    <div class="card-body">
+                      {% if user.studentprofile %}
+                        <p class="font-weight-bold"> {{ user.studentprofile.bio }}</p>
+                      {% else %}
+                        <p class="font-italic text-danger">Not yet available</p>
+                      {% endif %}
+                    </div>
+                  </div>
+
+
+            </div>
+
+          </div>
+
+      </div>
+      <div class="col">
+
+      </div>
+
+    </div>
+  </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}

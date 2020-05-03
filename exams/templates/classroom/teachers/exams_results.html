@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags humanize %}
+
+{% block content %}
+  {% include 'navbar.html' %}
+  {% if user.is_teacher %}
+   <div class="container">
+      <div class="row">
+        {% include 'sidenav.html' %}
+        
+        <div class="col">
+          
+  
+        </div>
+  
+        <div class="col" style="margin-top: 6rem; margin-bottom: 3rem;">
+            <div class="card" style="width: 60rem; font-size: 14px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+              <div class="card-body">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'exams:created_exams_list' %}">Examinations List</a></li>
+                    <li class="breadcrumb-item"><a href="{% url 'exams:update_exams' exams.pk %}">{{ exams.name }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Results</li>
+                  </ol>
+                </nav>
+                <h4 class="mb-3">{{ exams.name }} Results</h4>
+              
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Taken Exams</strong>
+                    <span class="badge badge-pill badge-primary float-right">Average Score: {{ exams_score.average_score|default_if_none:0.0 }}</span>
+                  </div>
+                  <table class="table mb-0 text-center" style="font-size: 12px;">
+                    <thead>
+                      <tr>
+                        <th>Student</th>
+                        <th>Sections</th>
+                        <th>Date</th>
+                        <th>Score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for taken_exams in taken_exams %}
+                        <tr>
+                          <td class="font-weight-bold">{{ taken_exams.student.user.studentprofile.last_name }}, {{ taken_exams.student.user.studentprofile.first_name }} {{ taken_exams.student.user.studentprofile.middle_name }}</td>
+                          <td>{{ exams.year_level }}</td>
+                          <td>{{ taken_exams.date|naturaltime }}</td>
+                          <td>{{ taken_exams.score }}</td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                  <div class="card-footer text-muted">
+                    Total respondents: <strong>{{ total_taken_exams }}</strong>
+                  </div>
+              </div>
+            </div>
+        </div>
+        </div>
+        <div class="col">
+          
+        </div>
+  
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

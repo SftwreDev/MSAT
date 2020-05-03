@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+{% if user.is_student %}
+<style>
+.card-exams{
+  margin-top: 50px;
+ }
+
+.slick-slide img{
+  margin: 0 auto;
+  max-width: 120px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  margin-bottom: 25px;
+}
+
+.item {
+  padding: 15px;
+  outline: none;
+}
+
+.item-inner{
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 18px;
+  text-align: center;
+  padding: 18px;
+  height: 20rem;
+}
+.item-inner-a{
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 18px;
+  text-align: center;
+  padding: 25px;
+  height: 20rem;
+}
+
+
+.item-inner-a img{
+  margin: 0 auto;
+  max-width: 200px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  margin-bottom: 25px;
+}
+.item-inner a:hover{
+  transform: translateY(-10px);
+}
+
+.slick-slide{
+  transform: scale(0.8);
+  opacity: 0.3;
+  transition: all ease 0.5s;
+
+}
+
+.slick-slide.slick-current{
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* SLIDER CONTROLLER*/
+
+.slick-arrow{
+  position: absolute;
+  bottom: 0;
+  z-index: 99;
+  background: #29b6f6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 50px;
+  width: 100px;
+  outline: none;
+}
+
+.slick-next{
+  left: 51%;
+}
+
+.slick-prev{
+  left: 41%
+}
+</style>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+    </div>
+
+    <div class="col-md-12">
+
+      <div class="card-exams">
+        <h5 class="display-5 alert alert-info text-center">Quiz List</h5>
+          <div class="slider">
+            {% for list in quiz %}
+            <div class="item">
+              <div class="item-inner">
+                <img src="{% static 'images/exams-card.png' %}" >
+                <h5>{{ list.name }}</h5>
+
+                <p class="text-muted">{{ list.year_level }}<br>{{ list.questions_count }} questions</p>
+                <a href="{% url 'students:take_quiz' list.pk %}" class="btn btn-primary btn-sm">Start quiz</a>
+              </div>
+            </div>
+            {% empty %}
+            <div class="item">
+              <div class="item-inner-a">
+                <img src="{% static 'images/fox.gif' %}" >
+                <h5>No available quiz right now</h5>
+                <p class="text-muted">Please standby! Study to have a perfect score</p>
+
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-inner-a">
+                <img src="{% static 'images/fox.gif' %}" >
+                <h5>No available quiz right now</h5>
+                <p class="text-muted">Please standby! Study to have a perfect score</p>
+
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-inner-a">
+                <img src="{% static 'images/fox.gif' %}" >
+                <h5>No available quiz right now</h5>
+                <p class="text-muted">Please standby! Study to have a perfect score</p>
+
+              </div>
+            </div>
+
+            <div class="item">
+              <div class="item-inner-a">
+                <img src="{% static 'images/fox.gif' %}" >
+                <h5>No available quiz right now</h5>
+                <p class="text-muted">Please standby! Study to have a perfect score</p>
+
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+{% block extrascripts %}
+<script>
+  $(".slider").slick({
+    centerMode: true,
+    slidesToShow: 3
+  });
+</script>
+{% endblock extrascripts %}

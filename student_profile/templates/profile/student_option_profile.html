@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include '_modal.html' %}
+    {% include 'navbar.html' %}
+{% if user.is_student %}
+
+  <div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      {% include 'sidenav.html' %}
+      <div class="col">
+
+
+      </div>
+
+      <div class="col-md-8" style="margin-top: 4rem; margin-bottom: 3rem; font-size: 14px;">
+        <div class="card shadow p-3 mb-5 bg-white">
+
+                <div class="card-body">
+
+                </div>
+
+            <div class="card-header">
+
+              <ul class="nav nav-tabs card-header-tabs">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'profile:student-profile' %}">Info</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'profile:student-profile-about' %}">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'profile:student-taken-exams' %}">Taken Exams</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'profile:student-taken-quiz' %}">Taken Quizzes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'profile:student-options-profile' %}"><i class="fas fa-user-cog"></i></a>
+                </li>
+              </ul>
+            </div>
+            <div class="card-body">
+
+              <div class="card">
+
+                <div class="card">
+                  <ul class="list-group">
+                    <li class="list-group-item">
+                      <a class="create-profile text-primary text-decoration-none" ><i class="fas fa-plus-circle"aria-hidden="false"></i>&nbspCreate your profile</a>
+                    </li>
+                    {% if user.studentprofile %}
+                    <li class="list-group-item">
+                      <a class="update-profile text-primary text-decoration-none" data-id= "{% url 'profile:student-update-profile' user.studentprofile.pk %}" ><i class="fas fa-edit"aria-hidden="false"></i>&nbspUpdate your profile</a>
+
+
+                    </li>
+                    <li class="list-group-item">
+                      <a class="delete-profile text-primary text-decoration-none" data-id="{% url 'profile:student_profile_delete' user.studentprofile.pk %}"><i class="fas fa-trash-alt"aria-hidden="false"></i>&nbspDelete  your profile</a>
+
+
+                    </li>
+                    {% endif %}
+                  </ul>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+
+      </div>
+
+    </div>
+  </div>
+{% endif %}
+{% include 'footer.html' %}
+{% endblock %}
+
+{% block extrascripts %}
+  <script type="text/javascript">
+    $(function () {
+
+      // Create book button
+      $(".create-profile").modalForm({formURL: "{% url 'profile:student-create-profile' %}"});
+
+      // Update book buttons
+      $(".update-profile").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+
+      // Delete book buttons
+      $(".delete-profile").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+
+    });
+  </script>
+{% endblock extrascripts %}

@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+body{
+	margin: 0;
+	padding: 0;
+}
+
+section{
+	position: relative;
+	width: 100%;
+	height: 85vh;
+	background: url("{% static 'images/banner.jpg' %}");
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+section .wave{
+	position: absolute;
+	width: 100%;
+	height: 143px;
+	bottom: 0;
+	left: 0;
+	background: url("{% static 'images/wave.png' %}");
+	animation: animate 5s linear infinite;
+}
+
+section .wave:before{
+	content: '';
+	width: 100%;
+	height: 143px;
+	background: url("{% static 'images/wave.png' %}");
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.4;
+	animation: animate-reverse 5s linear infinite;
+}
+
+section .wave:after{
+	content: '';
+	width: 100%;
+	height: 143px;
+	background: url("{% static 'images/wave.png' %}");
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.7;
+	animation-delay: -5s;
+	animation: animate 10s linear infinite;
+}
+@keyframes animate{
+	0%
+	{
+		background-position: 0;
+	}
+
+	100%{
+		background-position: 1360px;
+	}
+}
+
+@keyframes animate-reverse{
+	0%
+	{
+		background-position: 1360px;
+	}
+
+	100%{
+		background-position: 0;
+	}
+}
+
+.banner a{
+	border-radius: 2rem;
+	background-color: white;
+	width: 8rem;
+
+}
+.banner{
+	text-transform: uppercase;
+	display: block;
+	font-size: 14px;
+	width: 100%;
+}
+.banner h3{
+	font-size: 55px;
+	font-weight: 400;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #0cebeb, #20e3b2, #29ffc6);
+	position: relative;
+	animation: text 3s 1;
+}
+
+.banner h4{
+	font-size: 37px;
+	font-weight: 200;
+}
+.banner a:hover{
+	background-color: #00e676;
+	color: white;
+}
+
+.table img{
+	width: 7rem;
+	height: 5rem;
+
+}
+.table img:hover{
+	transform: scale(1.2);
+}
+
+
+
+@keyframes text {
+	0%{
+		color: black;
+		margin-bottom: -40px;
+	}
+	30%{
+		letter-spacing: 9px;
+		margin-bottom: -40px;
+	}
+	85%{
+		letter-spacing: 5px;
+		margin-bottom: -40px;
+	}
+}
+</style>
+
+
+
+ <body>
+ 	{% include 'navbar.html' %}
+ 	<section>
+ 		<div class="wave"></div>
+
+ 		<div class="container">
+ 			<div class="row">
+ 				<div class="col text-center pt-5 banner">
+ 					<div class="text">
+ 					<h3 class="display-3">Malvar School of Arts and Trade</h3>
+ 					<h4 class="display-4">E-Learning Management System</h4>
+ 					</div>
+ 					{% if user.is_student %}
+ 					<table class="table table-borderless table-responsive-md">
+					  <thead>
+					    <tr>
+					      <th scope="col"><a href="{% url 'exams:exams_list' %}"><img src="{% static 'images/exam.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'quiz_list' %}"><img src="{% static 'images/quizes.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'handouts:list-of-handouts' %}"><img src="{% static 'images/hand-outs.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'handouts:list-of-videos' %}"><img src="{% static 'images/video-tutorial.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>Examinations</td>
+					      <td>Quizzes</td>
+					      <td>Handouts</td>
+					      <td>Video Tutorials</td>
+					    </tr>
+
+					  </tbody>
+					</table>
+ 					{% else %}
+ 					<table class="table table-borderless">
+					  <thead>
+					    <tr>
+					      <th scope="col"><a href="{% url 'exams:created_exams_list' %}"><img src="{% static 'images/exam.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'teachers:quiz_change_list' %}"><img src="{% static 'images/quizes.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'handouts:list-of-uploaded-handouts' %}"><img src="{% static 'images/hand-outs.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					      <th scope="col"><a href="{% url 'handouts:list-of-uploaded-videos' %}"><img src="{% static 'images/video-tutorial.png' %}" class="rounded-lg shadow bg-white rounded"></a></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>Examinations</td>
+					      <td>Quizzes</td>
+					      <td>Handouts</td>
+					      <td>Video Tutorials</td>
+					    </tr>
+
+					  </tbody>
+					</table>
+					{% endif %}
+ 				</div>
+ 			</div>
+ 		</div>
+		</div>
+ 	</section>
+
+
+
+
+  </body>
+{% endblock %}

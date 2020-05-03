@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+  <div class="container">
+      <div class="row">
+        <!--Side Navigation Bar-->
+
+        <div class="col">
+
+
+        </div>
+
+        <div class="col-sm-4" style="margin-top: 3rem; margin-bottom: 3rem;">
+            <div class="card" style=" font-size: 14px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+              <div class="card-body">
+                <h2>Sign up for a free account</h2>
+                <p class="lead">Select below the type of account you want to create</p>
+                <a href="{% url 'student_signup' %}" class="btn btn-primary btn-block btn-sm" role="button">I'm a student</a>
+                <a href="{% url 'teacher_signup' %}" class="btn btn-danger btn-block btn-sm" role="button">I'm a teacher</a>
+
+
+              </div>
+            </div>
+        </div>
+        <div class="col">
+
+        </div>
+
+      </div>
+    </div>
+
+{% endblock %}

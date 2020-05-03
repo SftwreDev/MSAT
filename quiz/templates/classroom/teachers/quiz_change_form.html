@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include '_modal.html' %}
+  {% include 'navbar.html' %}
+  {% if user.is_teacher %}
+  
+  <div class="container">
+      <div class="row">
+        <!--Side Navigation Bar-->
+        {% include 'sidenav.html' %}
+        <div class="col">
+          
+  
+        </div>
+  
+        <div class="col-12" style="margin-top: 3rem; margin-bottom: 3rem;">
+            <div class="card" style="font-size: 14px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+              <div class="card-body">
+                <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'teachers:quiz_change_list' %}">My Quizzes</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ quiz.name }}</li>
+                  </ol>
+                </nav>
+                <h2 class="mb-3">
+                  {{ quiz.name }}
+                  <a data-id="{% url 'teachers:quiz_results' quiz.pk %}" class="view-results btn btn-primary float-right btn-sm text-light"><i class="far fa-eye" aria-hidden="false"></i>&nbspView Result</a>
+                </h2>
+                <div class="row mb-3">
+                  <div class="col-md-6 col-sm-8 col-12">
+                    <form method="post" novalidate>
+                      {% csrf_token %}
+                      {{ form|crispy }}
+                      <button type="submit" class="btn btn-success btn-sm"><i class="far fa-save" aria-hidden="false"></i>&nbspSave Changes</button>
+                      <a href="{% url 'teachers:quiz_change_list' %}" class="btn btn-outline-secondary btn-sm" role="button"><i class="fas fa-window-close" aria-hidden="false"></i>&nbspCancel</a>
+                      <a data-id="{% url 'teachers:quiz_delete' quiz.pk %}" class="quiz-delete btn btn-danger float-right btn-sm text-light"><i class="far fa-trash-alt" aria-hidden="false"></i>&nbspDelete</a>
+                    </form>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="card-header">
+                    <div class="row">
+                      <div class="col-10">
+                        <strong>Questions</strong>
+                      </div>
+                      <div class="col-2">
+                        <strong>Answers</strong>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="list-group list-group-flush list-group-formset">
+                    {% for question in questions %}
+                      <div class="list-group-item">
+                        <div class="row">
+                          <div class="col-10">
+                            <a href="{% url 'teachers:question_change' quiz.pk question.pk %}">{{ question.text }}</a>
+                          </div>
+                          <div class="col-2">
+                            {{ question.answers_count }}
+                          </div>
+                        </div>
+                      </div>
+                    {% empty %}
+                      <div class="list-group-item text-center">
+                        <p class="text-muted font-italic mb-0">You haven't created any questions yet. Go ahead and <a href="{% url 'teachers:question_add' quiz.pk %}">add the first question</a>.</p>
+                      </div>
+                    {% endfor %}
+                  </div>
+                  <div class="card-footer">
+                    <a href="{% url 'teachers:question_add' quiz.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-plus" aria-hidden="false"></i>&nbspAdd Questions</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+          
+        </div>
+  
+      </div>
+    </div>
+  {% endif %}
+  {% include 'footer.html' %}
+{% endblock %}
+
+
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Read book buttons
+      $(".view-results").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".quiz-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+    });
+  </script>
+  {% endblock extrascripts %}

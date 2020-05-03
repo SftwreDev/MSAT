@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+{% block content %}
+{% include '_modal.html' %}
+{% include 'navbar.html' %}
+<style>
+.video video {
+  max-width: 6rem;
+}  
+
+.card {
+  border-radius: 1rem;
+
+}
+
+</style>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 pt-5">
+      <div class="card" style="width: 70rem;">
+        <div class="card-body">
+
+          <div class="container">
+          <div class="row">
+            <h5 class="card-title">List of videos</h5>
+            <a class="card-title upload-video text-light btn btn-primary"  style="height: 30px; width: 90px; padding: 3px; font-size: 14px; margin-left: 5px;">
+                  <span class="fas fa-plus " aria-hidden ='false'></span>&nbspVideo</a>
+          </div>
+        </div>
+         
+          <table class="table table-striped" style="font-size: 13px;">
+            <thead>
+              <tr>
+                <th scope="col" class="text-center">Video</th>
+                <th class="text-center" scope="col">Title</th>
+                <th class="text-center" scope="col">Description</th>
+                <th class="text-center" scope="col">Category</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for list in videos %}
+              <tr>
+                <th scope="col" class="video text-center">
+                  <video controls>
+                    <source src="{{ list.video.url }}" type="video/mp4">
+                  </video>
+                </th>
+                <td class="text-center pt-4">{{ list.title }}</td>
+                <td class="text-center pt-4">{{ list.description }}</td>
+                <td class="text-center pt-4">{{ list.category }}</td>
+                <td class="text-center pt-4" style="color: white;">
+                                
+                  <a class="video-delete btn btn-danger btn-sm" data-id="{% url 'handouts:delete-video' list.pk %}" class="btn btn-danger btn-sm"><i class="far fa-trash-alt" aria-hidden="false"></i>&nbspDelete</a>
+                  <a data-id="{% url 'handouts:update-video' list.pk %}" class="update-video btn btn-secondary btn-sm"><i class="fas fa-edit" aria-hidden="false"></i>&nbspEdit</a>
+                </td>
+                
+              </tr>
+              {% empty %}
+                <div class="alert alert-danger" role="alert">
+                  No available videos here
+
+                </div>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}
+
+
+
+
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Create book button
+     $(".upload-video").modalForm({formURL: "{% url 'handouts:upload-video' %}"});
+
+
+      // Read book buttons
+      $(".view-results").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".video-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Update book buttons
+      $(".update-video").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+    });
+  </script>
+  {% endblock extrascripts %}

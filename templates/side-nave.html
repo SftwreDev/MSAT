@@ -1,0 +1,184 @@
+
+
+{% load static %}
+
+<style>
+
+.content {
+  min-height: 100vh;
+  height: auto;
+  transition: all 0.2s ease-in-out;
+}
+
+.button-collapse {
+ position: fixed;
+ left: 10px;
+ top: 10px;
+ z-index: 10; 
+}
+header, section {
+  padding: 20px;
+}
+.card {
+  width: 100%;
+  margin-bottom: 15px;
+  color: #000;
+}
+@media(min-width: 1440px) {
+  .content {
+    padding-left: 250px;
+  }
+}
+@media(max-width: 720px) {
+  .main-header {
+    font-size: 260%;
+  }
+}
+
+
+
+
+</style>
+
+<body>
+    <!-- SideNav pushed content -->
+    <a href="#" data-activates="slide-out" class="btn-floating blue-gradient button-collapse btn-lg"><i
+        class="fas fa-bars"></i></a>
+  
+    <!-- Sidebar navigation -->
+    <div id="slide-out" class="side-nav fixed">
+      <ul class="custom-scrollbar">
+        <!-- Logo -->
+        <li>
+          <div class="logo-wrapper waves-light">
+            <a href="#"><img src="https://mdbootstrap.com/img/logo/mdb-transparent.png" class="img-fluid flex-center"></a> 
+          </div>
+        </li>
+        <!--/. Logo -->
+        <!--Social-->
+        <li>
+          <ul class="social">
+            <li><a href="#" class="icons-sm fb-ic"><i class="fab fa-facebook-f"> </i></a></li>
+            <li><a href="#" class="icons-sm pin-ic"><i class="fab fa-pinterest"> </i></a></li>
+            <li><a href="#" class="icons-sm gplus-ic"><i class="fab fa-google-plus-g"> </i></a></li>
+            <li><a href="#" class="icons-sm tw-ic"><i class="fab fa-twitter"> </i></a></li>
+          </ul>
+        </li>
+        <!--/Social-->
+        <!--Search Form-->
+        <li>
+          <form class="search-form" role="search">
+            <div class="form-group md-form mt-0 pt-1 waves-light">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+          </form>
+        </li>
+        <!--/.Search Form-->
+        <!-- Side navigation links -->
+        <li>
+          <ul class="collapsible collapsible-accordion">
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-chevron-right"></i> Submit
+                blog<i class="fas fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="#" class="waves-effect">Submit listing</a>
+                  </li>
+                  <li><a href="#" class="waves-effect">Registration form</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-hand-pointer"></i>
+                Instruction<i class="fas fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="#" class="waves-effect">For bloggers</a>
+                  </li>
+                  <li><a href="#" class="waves-effect">For authors</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="fas fa-eye"></i> About<i
+                  class="fas fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                <ul>
+                  <li><a href="#" class="waves-effect">Introduction</a>
+                  </li>
+                  <li><a href="#" class="waves-effect">Monthly meetings</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li><a class="collapsible-header waves-effect arrow-r"><i class="far fa-envelope"></i> Contact me<i
+                  class="fas fa-angle-down rotate-icon"></i></a>
+              <div class="collapsible-body">
+                <ul>
+                  
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </li>
+        <!--/. Side navigation links -->
+      </ul>
+      <div class="sidenav-bg rgba-blue-strong"></div>
+    </div>
+    <!--/. Sidebar navigation -->
+    
+  </body>
+
+
+
+<script>
+$(document).ready(function() {
+  let isOpen = false;
+  let $windowWidth = $( window ).width();
+  const $btnCollapse = $(".button-collapse");
+  const $content = $('#content');
+  
+  $( window ).resize(function() { 
+
+  	$windowWidth = $( window ).width(); 
+    if($windowWidth > 1440) {
+      $content.css('padding-left', '250px');
+      if(isOpen) {
+        $btnCollapse.css('left', '0');
+        isOpen = false; 
+      }
+    } else if($windowWidth < 530 && isOpen) {
+      $btnCollapse.css('left', '0');
+      $content.css('padding-left', '0');
+    	$('#sidenav-overlay').css('display', 'block'); 
+      $btnCollapse.trigger('click');
+    } else {
+      if(!isOpen) {
+      	$content.css('padding-left', '0'); 
+      }
+    }
+	});
+  
+  // SideNav Button Initialization
+  $btnCollapse.sideNav(); 
+  
+  $btnCollapse.on('click', () => { 
+   isOpen = !isOpen;
+   if($windowWidth > 530) {
+    const elPadding = isOpen ? '250px' : '0';
+    $btnCollapse.css('left', elPadding);
+   	$content.css('padding-left', elPadding);
+    $('#sidenav-overlay').css('display', 'none');
+   } else {
+    $('#sidenav-overlay').on('click', () => {
+      isOpen = !isOpen;
+    });
+   }    	
+  }); 
+  $('#sidenav-overlay').on('click', () => {
+      isOpen = !isOpen;
+    });
+});
+
+
+</script>
+  

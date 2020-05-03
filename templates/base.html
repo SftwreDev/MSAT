@@ -1,0 +1,61 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" sizes="20x20">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.min.css' %}">
+    <script type='text/javascript' src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.min.css' %}">
+    <script type='text/javascript' src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <link rel='stylesheet' type='text/css' href="{% static 'css/elms.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome/css/all.min.css' %}" type="text/css">
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+    <title>{% block title %}MSAT | ELMS{% endblock title %}</title>
+
+
+  </head>
+  <body style="background-color: #ffffff; font-family: 'Roboto', 'sans-serif'; ">
+    {% block content %}
+
+
+
+
+    {% endblock %}
+
+        <!-- JavaScript -->
+        {% block scripts %}
+        <script type="text/javascript" src="{% static 'bootstrap/js/jquery-3.4.1.slim.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <!-- You can alternatively load the minified version -->
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+        {% endblock scripts %}
+
+
+        {% block extrascripts %}
+        {% endblock extrascripts %}
+
+
+
+  </body>
+</html>

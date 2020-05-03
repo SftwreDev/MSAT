@@ -1,0 +1,103 @@
+{% load static %}
+<style>
+body {
+  font-family: "Lato", sans-serif;
+  transition: background-color .5s;
+}
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 53px;
+  left: 0;
+  background-color: #263238;
+  overflow-x: hidden;
+  transition: 0.2s;
+  padding-top: 0px;
+}
+
+.sidenav a {
+  padding: 10px 8px 15px 3px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #ffffff;
+  display: block;
+  transition: 0.3s;
+  margin-left: 10px;
+}
+
+.closebtn {
+  top: 0px;
+  right: 0px;
+  margin-left: 120px;
+  width: 2rem;
+  margin-top: 1rem;
+}
+
+
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()" style="margin-left: 125px; width: 3rem;"><i class="far fa-times-circle"></i></a>
+  {% if user.is_student %}<img class="rounded-circle account-img text-secondary" src="{{ user.studentprofile.profile_picture.url }}" class="card-img-top" alt="Profile Picture" 
+  style="width: 8rem; left: 15px; position: relative;"> 
+    
+  <hr>
+  <p class="text-center" style="color: white; font-size: 14px;">{{ user.studentprofile.last_name }}, {{ user.studentprofile.first_name }} {{ user.studentprofile.middle_name }}</p> 
+  {% else %}
+  <img class="rounded-circle account-img" src="{% static 'images/msat-logo.png' %}" class="card-img-top" alt="Profile Picture" 
+  style="width: 8rem; left: 15px; position: relative;"> 
+  {% endif %}
+  {% if user.is_student %}
+  <a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="false"></i>&nbsp Home</a>
+  
+  <a href="{% url 'profile:student-profile' %}"><i class="fa fa-user" aria-hidden="false"></i>&nbsp Profile</a>
+  <a href="{% url 'exams:exams_list' %}"><i class="fa fa-edit" aria-hidden="false"></i>&nbsp Exams</a>
+  <a href="{% url 'quiz_list' %}"><i class="fa fa-edit" aria-hidden="false"></i>&nbsp Quiz</a>
+  <a href="{% url 'handouts:handouts_homepage' %}"><i class="fa fa-file" aria-hidden="false"></i>&nbsp Handouts</a>
+
+  {% else %}
+
+  <a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="false"></i>&nbsp Home</a>
+  <a href="{% url 'profile:list-of-student' %}"><i class="fa fa-user-friends" aria-hidden="false"></i>&nbsp Student List</a>
+  <a href="{% url 'exams:created_exams_list' %}"><i class="fas fa-edit" aria-hidden="false"></i>&nbsp Exams</a>
+  <a href="{% url 'teachers:quiz_change_list' %}"><i class="far fa-edit" aria-hidden="false"></i>&nbsp Quiz</a>
+  <a href="{% url 'handouts:list-of-handouts' %}"><i class="fa fa-file" aria-hidden="false"></i>&nbsp Handouts</a>
+
+  {% endif %}
+
+  {% if user.is_authenticated %}
+            
+            <a href="{% url 'logout' %}"><i class="fa fa-sign-out-alt" aria-hidden="false"></i>&nbsp Log Out</a>
+            
+  {% endif %}
+
+  
+</div>
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "160px";
+  document.getElementById("main").style.marginLeft = "250px";
+  document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0px";
+  document.getElementById("main").style.marginLeft= "0";
+  document.body.style.backgroundColor = "white";
+}
+</script>

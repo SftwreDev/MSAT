@@ -1,0 +1,41 @@
+{% load static %}
+<div class="container">
+    
+    <div class="col">
+      <!--NONE-->
+
+    </div>
+
+    <div class="col-12">
+      
+        <nav class="navbar navbar-expand-lg fixed-top" style="background-color: white; margin: 3.7rem 8rem 0rem 8rem; height: 2rem;">
+  
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav" style="font-size: 16px; font-family: sans-serif;">
+                <a class="nav-item nav-link active text-muted" href="{% url 'index' %}" style="margin: 0rem 4rem 0rem 5rem;">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link text-muted" href="#" style="margin: 0rem 4rem 0rem 4rem;" onclick="Hello(); ">Profile</a>
+                <a class="nav-item nav-link text-muted" href="{% url 'exams_list' %}" style="margin: 0rem 4rem 0rem 4rem;">Examinations</a>
+                <a class="nav-item nav-link text-muted" href="{% url 'quiz_index' %}" style="margin: 0rem 4rem 0rem 4rem;">Quizzes</a>
+                <a class="nav-item nav-link text-muted" href="{% url 'handouts:list-of-handouts' %}" style="margin: 0rem 4rem 0rem 4rem;">Handouts</a>
+                
+              </div>
+            </div>
+          </nav>
+
+    </div>
+
+    <div class="col">
+      <!--NONE-->
+
+    </div>
+</div>
+
+
+
+
+<script type = "text/JavaScript">
+         
+      </script>

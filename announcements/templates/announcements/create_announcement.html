@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% include '_modal.html' %}
+  {% include 'navbar.html' %}
+  {% if user.is_teacher %}
+
+    <div class="container">
+      <div class="row">
+        <!--Side Navigation Bar-->
+
+        <div class="col">
+
+
+        </div>
+
+        <div class="col" style="margin-top: 1rem; margin-bottom: 4rem;">
+          <div class="card" style="width: 50rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <h3 class="card-title text-center">Announcements Board</h3>
+              <hr>
+              <button class="postannouncements btn btn-primary btn-sm mb-1 "><i class="fas fa-plus" aria-hidden='false'></i>&nbspPost</button>
+              <div class="card p-2">
+                  {% for list in announcements %}
+                        <div class="row">
+                          <div class="col">
+
+                              <span class="font-weight-bold "><i class="fas fa-thumbtack text-primary" aria-hidden = 'false'></i>&nbsp{{ list.title }}</span>
+                              <br>
+                              <span style='margin-left: 5px;'>{{list.content|truncatechars:20}}</span>
+
+                          </div>
+
+                          <div class="col text-center">
+
+                            <span><small>Date Posted: {{ list.date }}</small></span>
+
+                          </div>
+
+                          <div class="col text-light text-right">
+                            <a class="view-announcements btn btn-primary btn-sm" data-id="{% url 'announcements:view-posted-announcements' list.pk %}" ><i class="far fa-eye" aria-hidden="false"></i></a>
+                            <a class="announcements-delete btn btn-danger btn-sm" data-id="{% url 'announcements:post-delete' list.pk %}" ><i class="far fa-trash-alt" aria-hidden="false"></i></a>
+                            <a data-id="{% url 'announcements:post-edit' list.pk %}" class="update-announcements btn btn-secondary btn-sm"><i class="fas fa-edit" aria-hidden="false"></i></a>
+                        </div>
+                      </div>
+                      <hr>
+                  {% endfor %}
+
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col">
+
+        </div>
+
+      </div>
+    </div>
+  {% endif %}
+
+  {% include 'footer.html' %}
+{% endblock %}
+
+
+
+{% block extrascripts %}
+
+<script type="text/javascript">
+    $(function () {
+
+      // Create book button
+     $(".postannouncements").modalForm({formURL: "{% url 'announcements:post-announcements' %}"});
+
+
+      // Read book buttons
+      $(".view-announcements").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".announcements-delete").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      //Update
+      $ (".update-announcements").each(function (){
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+    });
+  </script>
+  {% endblock extrascripts %}

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+{% include "navbar.html" %}
+
+{% if user.is_authenticated %}
+
+  <div class="container">
+    <div class="row">
+      <!--Side Navigation Bar-->
+      
+      <div class="col">
+        
+
+      </div>
+
+      <div class="col" style="margin-top: 7rem;">
+          <div class="card" style="width: 50rem; font-size: 14px;
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5), 0 6px 20px 0 rgba(0, 0, 0, 0.25);">
+            <div class="card-body">
+              <div class="card">
+               <h1 class="display-1">Welcome</h1>
+              </div>
+
+            </div>
+          </div>
+      </div>
+      <div class="col">
+        
+      </div>
+
+    </div>
+  </div>
+
+  {% endif %}
+
+
+{% endblock %}

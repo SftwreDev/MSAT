@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'navbar.html' %}
+<style>
+.card-exams{
+  margin-top: 50px;
+ }
+
+.slick-slide img{
+  margin: 0 auto;
+  max-width: 120px;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  margin-bottom: 25px;
+}
+
+.item {
+  padding: 15px;
+  outline: none;
+}
+
+.item-inner{
+  background-color: #e0e0e0;
+  border-radius: 18px;
+  text-align: center;
+  padding: 25px;
+  height: 20rem;
+}
+.item-inner a:hover{
+  transform: translateY(-10px);
+}
+
+.slick-slide{
+  transform: scale(0.8);
+  opacity: 0.3;
+  transition: all ease 0.5s;
+
+}
+
+.slick-slide.slick-current{
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* SLIDER CONTROLLER*/
+
+.slick-arrow{
+  position: absolute;
+  bottom: 0;
+  z-index: 99;
+  background: #29b6f6;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 50px;
+  width: 100px;
+  outline: none;
+}
+
+.slick-next{
+  left: 51%;
+}
+
+.slick-prev{
+  left: 41%
+}
+</style>
+
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+
+    </div>
+
+    <div class="col-lg-12">
+
+      <div class="card-exams">
+        <h5 class="display-5 alert alert-info text-center">Examinations List</h5>
+          <div class="slider">
+            {% for list in exams %}
+            <div class="item">
+              <div class="item-inner">
+                <img src="{% static 'images/exams-card.png' %}" w>
+                <h5>{{ list.name }}</h5>
+                <p class="text-muted">{{ list.year_level }}</p>
+                <a href="{% url 'exams:take_exams' exams.pk %}" class="btn btn-primary btn-sm">Start exams</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+    </div>
+
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}
+{% block extrascripts %}
+<script>
+  $(".slider").slick({
+    centerMode: true,
+    slidesToShow: 3
+  });
+</script>
+{% endblock extrascripts %}

@@ -1,0 +1,217 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="{% static 'images/favicon.png' %}" sizes="20x20">
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.min.css' %}">
+    <script type='text/javascript' src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap\css\bootstrap.min.css' %}">
+    <script type='text/javascript' src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+
+    <link rel='stylesheet' type='text/css' href="{% static 'css/elms.css' %}">
+    <link rel='stylesheet' type='text/css' href="{% static 'css/icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome/css/all.min.css' %}" type="text/css">
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
+
+    <title>{% block title %}MSAT | ELMS{% endblock title %}</title>
+
+<style>
+body{
+	margin: 0;
+	padding: 0;
+}
+
+section{
+	position: relative;
+	width: 100%;
+	height: 100vh;
+	background: url("{% static 'images/banner.jpg' %}");
+	background-size: cover;
+	background-attachment: fixed;
+}
+
+section .wave{
+	position: absolute;
+	width: 100%;
+	height: 143px;
+	bottom: 0;
+	left: 0;
+	background: url("{% static 'images/wave.png' %}");
+	animation: animate 5s linear infinite;
+}
+
+section .wave:before{
+	content: '';
+	width: 100%;
+	height: 143px;
+	background: url("{% static 'images/wave.png' %}");
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.4;
+	animation: animate-reverse 5s linear infinite;
+}
+
+section .wave:after{
+	content: '';
+	width: 100%;
+	height: 143px;
+	background: url("{% static 'images/wave.png' %}");
+	position: absolute;
+	top: 0;
+	left: 0;
+	opacity: 0.7;
+	animation-delay: -5s;
+	animation: animate 10s linear infinite;
+}
+@keyframes animate{
+	0%
+	{
+		background-position: 0;
+	}
+
+	100%{
+		background-position: 1360px;
+	}
+}
+
+@keyframes animate-reverse{
+	0%
+	{
+		background-position: 1360px;
+	}
+
+	100%{
+		background-position: 0;
+	}
+}
+
+.banner a{
+	border-radius: 2rem;
+	background-color: white;
+	width: 8rem;
+
+}
+.banner{
+	text-transform: uppercase;
+	display: block;
+	font-size: 14px;
+	width: 100%;
+}
+.banner h3{
+	font-size: 60px;
+	font-weight: 400;
+	margin-bottom: 20px;
+	background: linear-gradient(to right, #0cebeb, #20e3b2, #29ffc6);
+	position: relative;
+	animation: text 3s 1;
+}
+
+.banner h4{
+	font-size: 40px;
+}
+.banner a:hover{
+	background-color: #212121;
+	color: white;
+}
+
+.table img{
+	width: 7rem;
+	height: 5rem;
+
+}
+.table img:hover{
+	transform: scale(1.2);
+}
+
+
+
+@keyframes text {
+	0%{
+		color: black;
+		margin-bottom: -40px;
+	}
+	30%{
+		letter-spacing: 9px;
+		margin-bottom: -50px;
+	}
+	85%{
+		letter-spacing: 5px;
+		margin-bottom: -50px;
+	}
+}
+</style>
+  </head>
+
+
+ <body>
+ 	<section>
+ 		<div class="wave"></div>
+
+ 		<div class="container">
+ 			<div class="row">
+ 				<div class="col-12 text-center pt-5 banner">
+ 					<div class="text">
+ 					<h3 class="display-3">Malvar School of Arts and Trade</h3>
+ 					<h4 class="display-4">E-Learning Management System</h4>
+ 					</div>
+ 					<table class="table table-borderless table-responsive-md">
+					  <thead>
+					    <tr>
+					      <th scope="col"><img src="{% static 'images/exam.png' %}" class="rounded-lg shadow bg-white rounded"></th>
+					      <th scope="col"><img src="{% static 'images/quizes.png' %}" class="rounded-lg shadow bg-white rounded"></th>
+					      <th scope="col"><img src="{% static 'images/hand-outs.png' %}" class="rounded-lg shadow bg-white rounded"></th>
+					      <th scope="col"><img src="{% static 'images/video-tutorial.png' %}" class="rounded-lg shadow bg-white rounded"></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+					    <tr>
+					      <td>Examinations</td>
+					      <td>Quizzes</td>
+					      <td>Handouts</td>
+					      <td>Video Tutorials</td>
+					    </tr>
+
+					  </tbody>
+					</table>
+ 					<a href="{% url 'login' %}" class="btn btn-sm font-weight-bold">Log In</a>
+ 				</div>
+ 			</div>
+ 		</div>
+
+ 	</section>
+
+        <!-- JavaScript -->
+        {% block scripts %}
+
+        <script src="{% static 'assets/js/jquery-3.2.1.min.js' %}"></script>
+        <script src="{% static 'assets/js/popper.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+        <!-- You can alternatively load the minified version -->
+        <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+        {% endblock scripts %}
+
+
+        {% block extrascripts %}
+        {% endblock extrascripts %}
+
+
+
+  </body>
+</html>
