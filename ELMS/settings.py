@@ -25,7 +25,7 @@ SECRET_KEY = 't^wz&m=zfrec!r6hj&hr4nedy^_c*0*j6nrs$rfv-kl)^%q_#b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['msat-elms.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ["msat-elms.herokuapp.com" ,'127.0.0.1']
 
 
 # Application definition
